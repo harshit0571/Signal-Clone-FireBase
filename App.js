@@ -21,7 +21,7 @@ export default function App() {
       <stack.Navigator initialRouteName="login" screenOptions={GlobalScreenOptions}>
         <stack.Screen name="login" component={LoginScreen} />
         <stack.Screen name="register" component={RegisterScreen} />
-        <stack.Screen name="HomeScreen" component={HomeScreen} />
+        <stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
       </stack.Navigator>
 
     </NavigationContainer>

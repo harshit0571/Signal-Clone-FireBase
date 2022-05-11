@@ -11,11 +11,14 @@ import { onAuthStateChanged } from 'firebase/auth'
 const LoginScreen = ({ navigation }) => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
+    const user = auth.currentUser;
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigation.replace("HomeScreen")
+                console.log(user)
+
             }
             else {
                 console.log("ok")

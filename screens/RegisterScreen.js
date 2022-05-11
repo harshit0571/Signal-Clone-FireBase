@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View } from 'react-
 import React, { useLayoutEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { Button, Input, Image, Text } from '@rneui/themed'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 
 const RegisterScreen = ({ navigation }) => {
@@ -12,12 +12,15 @@ const RegisterScreen = ({ navigation }) => {
     const [imgUrl, setimgUrl] = useState("")
 
     const auth = getAuth();
+
     const register = () => {
         createUserWithEmailAndPassword(auth, email, password, name, imgUrl)
             .then((userCredential) => {
                 const user = userCredential.user
-                const displayName = name;
-                const Url = imgUrl;
+                updateProfile(user, {
+                    displayName: name,
+                    photoURL: imgUrl || "https://www.pngitem.com/pimgs/m/514-5149286_profile-logo-hd-png-download.png"
+                })
 
             }).catch((error) => console.log(error))
     }
