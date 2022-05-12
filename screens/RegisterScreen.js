@@ -19,7 +19,7 @@ const RegisterScreen = ({ navigation }) => {
                 const user = userCredential.user
                 updateProfile(user, {
                     displayName: name,
-                    photoURL: imgUrl || "https://www.pngitem.com/pimgs/m/514-5149286_profile-logo-hd-png-download.png"
+                    photoURL: imgUrl || "https://img.icons8.com/ios-glyphs/344/user--v1.png"
                 })
 
             }).catch((error) => console.log(error))

@@ -5,40 +5,43 @@ import React, { useEffect, useState } from 'react'
 import { Button, Input, Image } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { auth } from '../firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+
+
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 
 
 const LoginScreen = ({ navigation }) => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
-    const user = auth.currentUser;
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                navigation.replace("HomeScreen")
-                console.log(user)
+    var x = "Email"
 
-            }
-            else {
-                console.log("ok")
-            }
-        })
-    }, [])
+    onAuthStateChanged(auth, (user) => {
+        if (user != null) {
+            navigation.replace("HomeScreen", {
+                user_: "user"
+            })
+        }
+        else {
+            console.log("no user")
+        }
+    })
+
 
     const signIn = () => {
+        signInWithEmailAndPassword(auth, Email, Password).then((user) => { navigation.navigate("HomeScreen", user) }).catch(error => alert(error))
 
-    }
+    };
     return (
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
             <StatusBar style="light" />
             <Image source={{ uri: "https://seeklogo.com/images/S/signal-logo-20A1616F60-seeklogo.com.png" }} style={{ width: 200, height: 200, }} />
 
             <View style={styles.inputContainer}>
-                <Input placeholder='Email' autoFocus type="Email" value={Email} onChangeText={(text) => setEmail(text)} />
+                <Input placeholder={x} autoFocus type="Email" value={Email} onChangeText={(text) => setEmail(text)} />
                 <Input placeholder='Password' secureTextEntry autoFocus type="Password" onChangeText={(text) => setPassword(text)} />
             </View>
-            <TouchableOpacity style={styles.Btn}>
+            <TouchableOpacity style={styles.Btn} onPress={signIn}>
                 <Text style={styles.BtnText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate("register")}>

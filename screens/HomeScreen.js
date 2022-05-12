@@ -1,48 +1,66 @@
-import { StyleSheet, View, Image } from 'react-native'
-import React, { useEffect } from 'react'
-import { Icon } from "@rneui/themed";
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { auth } from '../firebase'
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { Text } from '@rneui/themed'
+import CustomListIcons from '../components/CustomListIcons';
+import { Avatar } from '@rneui/base';
+import LoginScreen from './LoginScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const HomeScreen = () => {
-
+const HomeScreen = ({ navigation }) => {
     const auth = getAuth();
-    const name_ = auth.currentUser.displayName
-    const img = auth.currentUser.photoURL
+    const user = auth.currentUser;
+    const camera_Icon = <Icon name="camera" size={25} color="black" />;
+    const pen_Icon = <Icon name="pencil" size={25} color="black" />;
+    var img;
+    if (user) {
+        img = user.photoURL
+    }
+
+    const SignOutUser = () => {
+        auth.signOut().then(() => {
+            navigation.replace("login")
+        })
+    }
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            title: "Signal",
+            headerStyle: { backgroundColor: "#fff" },
+            headerTitleStyle: { color: "black" },
+            headerTintColor: "black",
+            headerLeft: () => <View style={{ marginLeft: 5 }}>
+                <TouchableOpacity onPress={SignOutUser}>
+                    <Avatar source={{ uri: img }} rounded />
+                </TouchableOpacity>
+            </View>,
+            // headerRight: () => <View style={{ flexDirection: "row", justifyContent: "center", marginRight: "5px", alignItems: "center" }}>
+            //     <TouchableOpacity style={{ marginRight: "15px" }}>
+            //         {camera_Icon}
+            //     </TouchableOpacity>
+            //     <TouchableOpacity>
+            //         {pen_Icon}
+            //     </TouchableOpacity>
+            // </View>
+        });
+    }, [navigation]);
+
 
     return (
-        <View>
-            <View style={styles.TopBar}>
+        <SafeAreaView>
+            <ScrollView>
+                <CustomListIcons />
 
-                <Image source={{ uri: img }} style={{ width: "40px", height: "40px", borderRadius: "50%" }} />
-                <Text h4>Signal</Text>
-                <View style={styles.icon_container}>
-                    <Image source={{ uri: "https://img.icons8.com/material-outlined/344/camera--v2.png" }} style={{ width: "40px", height: "40px", marginRight: "10px" }} />
-                    <Image source={{ uri: "https://img.icons8.com/material-sharp/344/search.png" }} style={{ width: "40px", height: "40px" }} />
-                </View>
-
-            </View>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 export default HomeScreen
 
 const styles = StyleSheet.create({
-    TopBar: {
-        display: 'flex',
-        flexDirection: "row",
-        height: "50px",
-        marginTop: 10,
-        justifyContent: "space-between"
-    },
-    TopText: {
-        fontSize: "20px",
-        padding: 10
-    },
-    icon_container: {
-        display: "flex",
-        flexDirection: "row"
-    }
+
 })

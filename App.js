@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import ChatScreen from './screens/ChatScreen';
 
 const stack = createNativeStackNavigator();
 const GlobalScreenOptions = {
@@ -21,7 +22,9 @@ export default function App() {
       <stack.Navigator initialRouteName="login" screenOptions={GlobalScreenOptions}>
         <stack.Screen name="login" component={LoginScreen} />
         <stack.Screen name="register" component={RegisterScreen} />
-        <stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+        <stack.Screen name="HomeScreen" component={HomeScreen} />
+        <stack.Screen name="chatScreen" component={ChatScreen} />
+
       </stack.Navigator>
 
     </NavigationContainer>
