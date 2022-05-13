@@ -9,6 +9,7 @@ import LoginScreen from './LoginScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AddChatPen from '../components/AddChatPen'
 
 const HomeScreen = ({ navigation }) => {
     const auth = getAuth();
@@ -25,7 +26,6 @@ const HomeScreen = ({ navigation }) => {
             navigation.replace("login")
         })
     }
-
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: "Signal",
@@ -37,23 +37,16 @@ const HomeScreen = ({ navigation }) => {
                     <Avatar source={{ uri: img }} rounded />
                 </TouchableOpacity>
             </View>,
-            // headerRight: () => <View style={{ flexDirection: "row", justifyContent: "center", marginRight: "5px", alignItems: "center" }}>
-            //     <TouchableOpacity style={{ marginRight: "15px" }}>
-            //         {camera_Icon}
-            //     </TouchableOpacity>
-            //     <TouchableOpacity>
-            //         {pen_Icon}
-            //     </TouchableOpacity>
-            // </View>
+            headerRight: () => <TouchableOpacity onPress={() => navigation.navigate('chatScreen')}>{pen_Icon}</TouchableOpacity>
         });
     }, [navigation]);
+
 
 
     return (
         <SafeAreaView>
             <ScrollView>
                 <CustomListIcons />
-
             </ScrollView>
         </SafeAreaView>
     )

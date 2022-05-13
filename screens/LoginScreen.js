@@ -22,9 +22,6 @@ const LoginScreen = ({ navigation }) => {
                 user_: "user"
             })
         }
-        else {
-            console.log("no user")
-        }
     })
 
 
