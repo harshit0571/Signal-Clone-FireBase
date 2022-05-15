@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
-import { Button, Input, Image } from '@rneui/themed'
+import { Button, Input, Image, ListItem, Avatar } from '@rneui/themed'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
 import { async } from '@firebase/util';

@@ -6,8 +6,10 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
 import ChatScreen from './screens/ChatScreen';
+import Chats from './screens/Chats';
 
 const stack = createNativeStackNavigator();
+
 const GlobalScreenOptions = {
   headerStyle: { backgroundColor: "#2C6BED", alignItems: "center" },
   headerTitleStyle: { color: "white" },
@@ -24,6 +26,7 @@ export default function App() {
         <stack.Screen name="register" component={RegisterScreen} />
         <stack.Screen name="HomeScreen" component={HomeScreen} />
         <stack.Screen name="chatScreen" component={ChatScreen} />
+        <stack.Screen name="Chats" component={Chats} />
 
       </stack.Navigator>
 
